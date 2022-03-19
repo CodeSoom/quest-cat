@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "watch": "jest --watchAll",
-    "build": "pkg index.js --output dist/kitten -t node16,macos,arm64"
+    "build": "pkg index.js --output dist/kitten -t node16,macos,arm64",
+    "start": "node index.js"
   },
   "keywords": [],
   "author": "",

@@ -7,3 +7,10 @@
 npm run build
 ./dist/kitten
 ```
+
+## Custom Command
+```
+npm run build
+./dist/kitten
+sudo cp ./dist/kitten usr/local/bin
+```
