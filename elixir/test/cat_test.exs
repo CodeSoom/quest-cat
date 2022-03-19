@@ -5,6 +5,16 @@ defmodule CatTest do
 
   doctest Cat
 
+  describe "run / When given '-h' or '--help'" do
+    test "When gives '-h', Should print manual" do
+      assert capture_io(fn -> Cat.run("-h") end) =~ "NAME\n    cat"
+    end
+
+    test "When gives '--help', Should print manual" do
+      assert capture_io(fn -> Cat.run("--help") end) =~ "NAME\n    cat"
+    end
+  end
+
   describe "run / When given path is exists" do
     setup do
       [filepath: "./README.md"]
