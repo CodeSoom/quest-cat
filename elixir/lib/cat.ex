@@ -12,9 +12,9 @@ defmodule Cat do
       :ok
   """
   def run(filepath) do
-    IO.puts """
-    #{filepath}
-    # Cat
-    """
+    case File.read(filepath) do
+    {:ok, body} -> IO.puts(body)
+    {:error, reason} -> IO.puts("cat: #{filepath}: No such file or directory")
+    end
   end
 end

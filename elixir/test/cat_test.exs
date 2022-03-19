@@ -5,11 +5,23 @@ defmodule CatTest do
 
   doctest Cat
 
-  test "read README file" do
-    execute = fn ->
-      Cat.run("./README.md")
+  describe "run / When given path is exists" do
+    setup do
+      [filepath: "./README.md"]
     end
 
-    assert capture_io(execute) =~ "# Cat"
+    test "Should print body", fixture do
+      assert capture_io(fn -> Cat.run(fixture.filepath) end) =~ "# Cat"
+    end
+  end
+
+  describe "run / When given path is not exists" do
+    setup do
+      [filepath: "./README"]
+    end
+
+    test "Should print error message", fixture do
+      assert capture_io(fn -> Cat.run(fixture.filepath) end) === "cat: #{fixture.filepath}: No such file or directory\n"
+    end
   end
 end
