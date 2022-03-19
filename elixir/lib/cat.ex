@@ -4,15 +4,17 @@ defmodule Cat do
   """
 
   @doc """
-  Hello world.
+  Cat.
 
   ## Examples
-
-      iex> Cat.hello()
-      :world
-
+      iex> Cat.run("./README.md")
+      # Cat...
+      :ok
   """
-  def hello do
-    :world
+  def run(filepath) do
+    IO.puts """
+    #{filepath}
+    # Cat
+    """
   end
 end
