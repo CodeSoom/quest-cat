@@ -1,6 +1,8 @@
 defmodule Cat do
   @moduledoc false
 
+  use Application
+
   @doc false
   @spec manual() :: String.t()
   defp manual do
@@ -150,5 +152,9 @@ defmodule Cat do
       {:ok, body} -> IO.puts(body)
       {:error, _} -> IO.puts(notFound(filepath))
     end
+  end
+
+  def main(_args) do
+    meow(_args)
   end
 end
