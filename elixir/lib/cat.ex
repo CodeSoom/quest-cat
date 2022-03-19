@@ -1,8 +1,8 @@
 defmodule Cat do
-  @moduledoc """
-  cat 명령어 안내
-  """
+  @moduledoc false
 
+  @doc false
+  @spec manual() :: String.t()
   defp manual do
     """
     NAME
@@ -103,6 +103,7 @@ defmodule Cat do
     """
   end
 
+  @doc false
   @spec notFound(String.t()) :: String.t()
   defp notFound(filepath) do
     "cat: #{filepath}: No such file or directory"
@@ -117,15 +118,15 @@ defmodule Cat do
 
   ## Examples
 
-    iex> Cat.run("-h")
+    iex> Cat.meow("-h")
     NAME
         cat
     ...
     :ok
 
   """
-  @spec run(String.t()) :: :ok
-  def run(filepath) when filepath === "-h" or filepath === "--help" do
+  @spec meow(String.t()) :: :ok
+  def meow(filepath) when filepath === "-h" or filepath === "--help" do
     IO.puts(manual())
   end
 
@@ -138,16 +139,16 @@ defmodule Cat do
 
   ## Examples
 
-    iex> Cat.run("./README.md")
+    iex> Cat.meow("./README.md")
     # Cat...
     :ok
 
   """
-  @spec run(String.t()) :: :ok
-  def run(filepath) do
+  @spec meow(String.t()) :: :ok
+  def meow(filepath) do
     case File.read(filepath) do
-    {:ok, body} -> IO.puts(body)
-    {:error, _} -> IO.puts(notFound(filepath))
+      {:ok, body} -> IO.puts(body)
+      {:error, _} -> IO.puts(notFound(filepath))
     end
   end
 end
