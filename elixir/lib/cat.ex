@@ -4,9 +4,12 @@ defmodule Cat do
   use Application
 
   @doc false
+  defguardp help(args) when hd(args) === "-h" or hd(args) === "--help"
+
+  @doc false
   @spec manual() :: String.t()
-  defp manual do
-    """
+  defp manual,
+    do: """
     NAME
         cat - concatenate and print files
 
@@ -103,58 +106,45 @@ defmodule Cat do
         The cat utility does not recognize multibyte characters when the -t or -v
         option is in effect.
     """
-  end
 
   @doc false
   @spec notFound(String.t()) :: String.t()
-  defp notFound(filepath) do
-    "cat: #{filepath}: No such file or directory"
-  end
+  defp notFound(filepath), do: "cat: #{filepath}: No such file or directory"
 
   @doc """
   메뉴얼을 호출합니다.
 
   ## Parameters
 
-    - filepath: -h 또는 --help
-
-  ## Examples
-
-    iex> Cat.meow("-h")
-    NAME
-        cat
-    ...
-    :ok
+    - args: ["-h"] 또는 ["--help"]
 
   """
-  @spec meow(String.t()) :: :ok
-  def meow(filepath) when filepath === "-h" or filepath === "--help" do
-    IO.puts(manual())
-  end
+  @spec meow(Enum.t()) :: :ok
+  defp meow(args) when help(args), do: IO.puts(manual())
 
   @doc """
   파일을 읽은 뒤 출력합니다.
 
   ## Parameters
 
-    - filepath: 파일의 경로를 입력합니다.
+    - args: 파일의 경로를 입력합니다.
 
   ## Examples
 
-    iex> Cat.meow("./README.md")
+    iex> Cat.meow(["./README.md"])
     # Cat...
     :ok
 
   """
-  @spec meow(String.t()) :: :ok
-  def meow(filepath) do
-    case File.read(filepath) do
+  @spec meow(Enum.t()) :: :ok
+  defp meow(args) do
+    case File.read(hd(args)) do
       {:ok, body} -> IO.puts(body)
-      {:error, _} -> IO.puts(notFound(filepath))
+      {:error, _} -> IO.puts(notFound(hd(args)))
     end
   end
 
-  def main(_args) do
-    meow(_args)
-  end
+  @doc false
+  @spec main(Enum.t()) :: :ok
+  def main(args), do: meow(args)
 end
