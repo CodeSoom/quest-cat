@@ -1,0 +1,25 @@
+{
+  "name": "kitten",
+  "version": "1.0.0",
+  "description": "read the content of a file",
+  "main": "index.js",
+  "scripts": {
+    "watch": "jest --watchAll",
+    "build": "pkg index.js --output dist/kitten -t node16,macos,arm64",
+    "start": "node index.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@swc/core": "^1.2.154",
+    "@swc/jest": "^0.2.20",
+    "@types/jest": "^27.4.1",
+    "eslint": "^8.11.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-plugin-import": "^2.25.4",
+    "jest": "^27.5.1",
+    "pkg": "^5.5.2",
+    "regenerator-runtime": "^0.13.9"
+  }
+}
