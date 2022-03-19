@@ -4,7 +4,8 @@
   "description": "read the content of a file",
   "main": "index.js",
   "scripts": {
-    "watch": "jest --watchAll"
+    "watch": "jest --watchAll",
+    "build": "pkg index.js --output dist/kitten -t node16,macos,arm64"
   },
   "keywords": [],
   "author": "",
@@ -17,6 +18,7 @@
     "eslint-config-airbnb-base": "^15.0.0",
     "eslint-plugin-import": "^2.25.4",
     "jest": "^27.5.1",
+    "pkg": "^5.5.2",
     "regenerator-runtime": "^0.13.9"
   }
 }
