@@ -1,0 +1,31 @@
+name: Elixir Test
+
+on: [push, pull_request]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    env:
+      working-directory: './elixir'
+
+    name: OTP ${{matrix.otp}} / Elixir ${{matrix.elixir}}
+    strategy:
+      matrix:
+        otp: ['22.3.4.24']
+        elixir: ['1.8.2']
+
+    steps:
+      - uses: actions/checkout@v2
+      - uses: erlef/setup-beam@v1
+        with:
+          otp-version: ${{matrix.otp}}
+          elixir-version: ${{matrix.elixir}}
+
+      - name: mix deps.get
+        run: mix deps.get
+        working-directory: ${{env.working-directory}}
+
+      - name: mix test --cover
+        run: mix test --cover
+        working-directory: ${{env.working-directory}}
