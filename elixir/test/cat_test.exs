@@ -5,9 +5,7 @@ defmodule CatTest do
 
   doctest Cat
 
-  defp manualHead do
-    "NAME\n    cat"
-  end
+  defp manualHead, do: "NAME\n    cat"
 
   describe "meow / When given '-h' or '--help'" do
     test "When gives '-h', Should print manual" do
