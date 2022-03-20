@@ -9,6 +9,19 @@ defmodule Cat do
   @spec meow(Enum.t()) :: :ok
   defp meow(args) when DefGuard.help(args), do: IO.puts(Utils.manual())
 
+  # TODO: 지금은 첫번 째 파일만 읽도록 헀지만, 그 다음 args도 처리해야 합니다.
+  defp meow(args) when DefGuard.lineNumber(args) do
+    case File.read(Enum.at(args, 1)) do
+      {:ok, body} ->
+        String.split(body, "\n")
+        |> Enum.with_index(1)
+        |> Enum.each(fn {line, index} -> IO.puts("#{index} #{line}") end)
+
+      {:error, _} ->
+        IO.puts(Utils.notFound(Enum.at(args, 1)))
+    end
+  end
+
   defp meow(args) do
     case File.read(hd(args)) do
       {:ok, body} -> IO.puts(body)

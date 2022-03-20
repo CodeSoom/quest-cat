@@ -12,8 +12,14 @@ defmodule DefGuardTest do
       assert DefGuard.help(["--help"])
     end
 
-    test "When given args is not help, it should returns true" do
+    test "When given args is not help, it should returns false" do
       refute DefGuard.help(["-d"])
+    end
+  end
+
+  describe "lineNumber" do
+    test "When given args is [\"-b\"], it should returns true" do
+      assert DefGuard.lineNumber(["-b"])
     end
   end
 end

@@ -17,6 +17,25 @@ defmodule CatTest do
     end
   end
 
+  describe "meow / When given '-b' option" do
+    setup do
+      [
+        filepath: ["./README.md"],
+        wrongFilepath: ["./README"]
+      ]
+    end
+
+    test "When file is exists, Should prints with line number", fixture do
+      assert capture_io(fn -> Cat.main(["-b", fixture.filepath]) end) =~ "1 # Cat"
+    end
+
+    # TODO: 이 테스트를 공통으로 묶어서 한번만 할 수 있어야 합니다.
+    test "When file is not exists, Should print error message", fixture do
+      assert capture_io(fn -> Cat.main(["-b", fixture.wrongFilepath]) end) ===
+               "cat: #{fixture.wrongFilepath}: No such file or directory\n"
+    end
+  end
+
   describe "meow / When given path is exists" do
     setup do
       [filepath: ["./README.md"]]
