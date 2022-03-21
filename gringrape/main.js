@@ -1,10 +1,15 @@
-import { readFile } from 'fs/promises';
+import TextFile from './TextFile';
 
 const { log: print } = console;
 
 export default async function main(args) {
-  const [filePath] = args;
+  const [...filePaths] = args;
 
-  const data = await readFile(filePath, 'utf8');
-  print(data);
+  const files = await Promise.all(
+    filePaths.map(TextFile.readFrom),
+  );
+
+  files
+    .reduce((a, b) => a.concat(b))
+    .writeWith(print);
 }
