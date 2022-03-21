@@ -3,3 +3,6 @@ node_modules
 
 # distribution directory
 dist
+
+# parcel
+.parcel-cache
