@@ -18,4 +18,22 @@ describe('TextFile', () => {
     expect(textFile1.concat(textFile2))
       .toEqual(new TextFile('foo\nbar'));
   });
+
+  describe('with "numberEachLine" option', () => {
+    it('transforms its content with option', () => {
+      const textFile = new TextFile('foo\nbar');
+
+      expect(textFile.transform('numberEachLine'))
+        .toEqual(new TextFile('     1 foo\n     2 bar'));
+    });
+  });
+
+  describe('with "numberNonBlankLine" option', () => {
+    it('transforms its content with option', () => {
+      const textFile = new TextFile('foo\n \nbar');
+
+      expect(textFile.transform('numberNonBlankLine'))
+        .toEqual(new TextFile('     1 foo\n \n     3 bar'));
+    });
+  });
 });
